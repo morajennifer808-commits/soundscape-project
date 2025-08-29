@@ -1,256 +1,240 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2487.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative Focus Soundscape</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&family=Inter:wght@400;600;700&family=Oswald:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+            text-align: center;
+        }
+        #main-header {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            color: #000000;
+        }
+        .body-text {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+        }
+        .button-font {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .sound-button-font {
+            font-family: 'Barlow', sans-serif;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+        .bg-custom-pink {
+            background-color: #e91d63;
+        }
+        .hover-bg-custom-pink-darker:hover {
+            background-color: #c41a52;
+        }
+        .text-custom-pink {
+            color: #e91d63;
+        }
+        .hover-bg-custom-pink-light:hover {
+            background-color: #f7e0e7;
+        }
+        .message-box {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .sound-toggle-btn:disabled, .sound-toggle-btn[disabled] {
+            cursor: not-allowed;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
 </head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Generative Focus Soundscape&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400&amp;family=Inter:wght@400;600;700&amp;family=Oswald:wght@400&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f3f4f6;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#main-header {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Oswald', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #000000;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.body-text {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Barlow', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.button-font {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Barlow', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.sound-button-font {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Barlow', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 400;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bg-custom-pink {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e91d63;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hover-bg-custom-pink-darker:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #c41a52;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.text-custom-pink {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: #e91d63;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hover-bg-custom-pink-light:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f7e0e7;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.message-box {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #3b82f6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0.75rem 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 9999px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1000;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 0.3s ease-in-out;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.sound-toggle-btn:disabled, .sound-toggle-btn[disabled] {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>cursor: not-allowed;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="bg-slate-100 text-slate-800"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="max-w-xl w-full p-8 md:p-12 bg-white rounded-xl shadow-2xl space-y-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1 id="main-header" class="text-xl sm:text-2xl font-bold"&gt;Generative Focus Soundscape&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="body-text text-base md:text-lg text-slate-600 leading-relaxed"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>This module generates sounds in real-time. Click "Start Sound" and then mix and match the layers to create your ideal soundscape.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-col sm:flex-row items-center justify-center gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="start-button" class="button-font bg-custom-pink hover-bg-custom-pink-darker text-white font-semibold py-3 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Start Sound</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="stop-all-button" class="button-font bg-white text-custom-pink hover-bg-custom-pink-light font-semibold py-3 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95" disabled&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Stop All</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="sound-buttons" class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-sound="rain" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Rain</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-sound="forest" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Forest</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-sound="coffeeshop" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Coffee Shop</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-sound="music" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Calm Music</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-sound="stream" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Gentle Stream</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button data-sound="ocean" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Ocean Waves</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;div id="message-box" class="message-box"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.addEventListener('DOMContentLoaded', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const showMessage = (text) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const msgBox = document.getElementById('message-box');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>msgBox.textContent = text;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>msgBox.style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>msgBox.style.opacity = 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, 10);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>msgBox.style.opacity = 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; msgBox.style.display = 'none', 300);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, 2000);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const toggleButtonState = (button, isActive) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (isActive) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>button.classList.remove('bg-slate-200', 'text-slate-800', 'hover:bg-slate-300');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>button.classList.add('bg-blue-500', 'text-white', 'hover:bg-blue-600');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>button.classList.remove('bg-blue-500', 'text-white', 'hover:bg-blue-600');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>button.classList.add('bg-slate-200', 'text-slate-800', 'hover:bg-slate-300');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>let isAudioReady = false;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const sounds = {};</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const soundUrls = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'coffeeshop': 'https://morajennifer808-commits.github.io/soundscape-project/audio/coffeeshop.mp3',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'forest': 'https://morajennifer808-commits.github.io/soundscape-project/audio/forest.mp3',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'ocean': 'https://morajennifer808-commits.github.io/soundscape-project/audio/ocean.mp3',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'rain': 'https://morajennifer808-commits.github.io/soundscape-project/audio/rain.mp3',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'stream': 'https://morajennifer808-commits.github.io/soundscape-project/audio/stream.mp3',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'music': 'https://morajennifer808-commits.github.io/soundscape-project/audio/music.mp3'</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const startButton = document.getElementById('start-button');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const stopAllButton = document.getElementById('stop-all-button');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const soundButtons = document.querySelectorAll('.sound-toggle-btn');</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const loadSounds = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return new Promise(resolve =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const players = {};</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const promises = [];</p>
-<p class="p1"><span class="Apple-converted-space">                </span>for (const soundName in soundUrls) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const player = new Tone.Player(soundUrls[soundName]).toDestination();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>player.loop = true;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>player.autostart = false;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>players[soundName] = player;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>promises.push(player.load());</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Promise.all(promises).then(() =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resolve(players);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>startButton.addEventListener('click', async () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!isAudioReady) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>startButton.textContent = 'Loading...';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>startButton.disabled = true;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>await Tone.start();</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const players = await loadSounds();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>Object.assign(sounds, players);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>isAudioReady = true;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>startButton.style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>stopAllButton.disabled = false;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>soundButtons.forEach(btn =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>btn.disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>showMessage('Audio is now active. Mix and match the sounds!');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>stopAllButton.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (isAudioReady) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>for (const soundName in sounds) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (sounds[soundName].state === 'started') {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>sounds[soundName].stop();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>soundButtons.forEach(btn =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>toggleButtonState(btn, false);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>showMessage('All sounds stopped.');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>soundButtons.forEach(button =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>button.addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const soundName = button.dataset.sound;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const sound = sounds[soundName];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (!isAudioReady) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>showMessage('Please click "Start Sound" first.');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (sound &amp;&amp; sound.state === 'started') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>sound.stop();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>toggleButtonState(button, false);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>showMessage(`${button.textContent} deactivated.`);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} else if (sound) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>sound.start();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>toggleButtonState(button, true);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>showMessage(`${button.textContent} activated.`);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1">&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<body class="bg-slate-100 text-slate-800">
+
+<div class="container">
+    <div class="max-w-xl w-full p-8 md:p-12 bg-white rounded-xl shadow-2xl space-y-8">
+        <h1 id="main-header" class="text-xl sm:text-2xl font-bold">Generative Focus Soundscape</h1>
+        <p class="body-text text-base md:text-lg text-slate-600 leading-relaxed">
+            This module generates sounds in real-time. Click "Start Sound" and then mix and match the layers to create your ideal soundscape.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button id="start-button" class="button-font bg-custom-pink hover-bg-custom-pink-darker text-white font-semibold py-3 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95">
+                Start Sound
+            </button>
+            <button id="stop-all-button" class="button-font bg-white text-custom-pink hover-bg-custom-pink-light font-semibold py-3 px-8 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95" disabled>
+                Stop All
+            </button>
+        </div>
+
+        <div id="sound-buttons" class="grid grid-cols-2 md:grid-cols-3 gap-4 pt-4">
+            <button data-sound="rain" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled>
+                Rain
+            </button>
+            <button data-sound="forest" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled>
+                Forest
+            </button>
+            <button data-sound="coffeeshop" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled>
+                Coffee Shop
+            </button>
+            <button data-sound="music" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled>
+                Calm Music
+            </button>
+            <button data-sound="stream" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled>
+                Gentle Stream
+            </button>
+            <button data-sound="ocean" class="sound-toggle-btn sound-button-font bg-slate-200 text-slate-800 py-3 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-95 hover:bg-slate-300" disabled>
+                Ocean Waves
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="message-box" class="message-box"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const showMessage = (text) => {
+            const msgBox = document.getElementById('message-box');
+            msgBox.textContent = text;
+            msgBox.style.display = 'block';
+            setTimeout(() => {
+                msgBox.style.opacity = 1;
+            }, 10);
+            setTimeout(() => {
+                msgBox.style.opacity = 0;
+                setTimeout(() => msgBox.style.display = 'none', 300);
+            }, 2000);
+        };
+
+        const toggleButtonState = (button, isActive) => {
+            if (isActive) {
+                button.classList.remove('bg-slate-200', 'text-slate-800', 'hover:bg-slate-300');
+                button.classList.add('bg-blue-500', 'text-white', 'hover:bg-blue-600');
+            } else {
+                button.classList.remove('bg-blue-500', 'text-white', 'hover:bg-blue-600');
+                button.classList.add('bg-slate-200', 'text-slate-800', 'hover:bg-slate-300');
+            }
+        };
+
+        let isAudioReady = false;
+        const sounds = {};
+        const soundUrls = {
+            'coffeeshop': 'https://morajennifer808-commits.github.io/soundscape-project/audio/coffeeshop.mp3',
+            'forest': 'https://morajennifer808-commits.github.io/soundscape-project/audio/forest.mp3',
+            'ocean': 'https://morajennifer808-commits.github.io/soundscape-project/audio/ocean.mp3',
+            'rain': 'https://morajennifer808-commits.github.io/soundscape-project/audio/rain.mp3',
+            'stream': 'https://morajennifer808-commits.github.io/soundscape-project/audio/stream.mp3',
+            'music': 'https://morajennifer808-commits.github.io/soundscape-project/audio/music.mp3'
+        };
+
+        const startButton = document.getElementById('start-button');
+        const stopAllButton = document.getElementById('stop-all-button');
+        const soundButtons = document.querySelectorAll('.sound-toggle-btn');
+        
+        const loadSounds = () => {
+            return new Promise(resolve => {
+                const players = {};
+                const promises = [];
+                for (const soundName in soundUrls) {
+                    const player = new Tone.Player(soundUrls[soundName]).toDestination();
+                    player.loop = true;
+                    player.autostart = false;
+                    players[soundName] = player;
+                    promises.push(player.load());
+                }
+                Promise.all(promises).then(() => {
+                    resolve(players);
+                });
+            });
+        };
+
+        startButton.addEventListener('click', async () => {
+            if (!isAudioReady) {
+                startButton.textContent = 'Loading...';
+                startButton.disabled = true;
+
+                await Tone.start();
+                
+                const players = await loadSounds();
+                Object.assign(sounds, players);
+
+                isAudioReady = true;
+                startButton.style.display = 'none';
+                stopAllButton.disabled = false;
+                
+                soundButtons.forEach(btn => {
+                    btn.disabled = false;
+                });
+                
+                showMessage('Audio is now active. Mix and match the sounds!');
+            }
+        });
+
+        stopAllButton.addEventListener('click', () => {
+            if (isAudioReady) {
+                for (const soundName in sounds) {
+                    if (sounds[soundName].state === 'started') {
+                        sounds[soundName].stop();
+                    }
+                }
+                soundButtons.forEach(btn => {
+                    toggleButtonState(btn, false);
+                });
+                showMessage('All sounds stopped.');
+            }
+        });
+
+        soundButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const soundName = button.dataset.sound;
+                const sound = sounds[soundName];
+
+                if (!isAudioReady) {
+                    showMessage('Please click "Start Sound" first.');
+                    return;
+                }
+
+                if (sound && sound.state === 'started') {
+                    sound.stop();
+                    toggleButtonState(button, false);
+                    showMessage(`${button.textContent} deactivated.`);
+                } else if (sound) {
+                    sound.start();
+                    toggleButtonState(button, true);
+                    showMessage(`${button.textContent} activated.`);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
