@@ -162,12 +162,12 @@
 <p class="p1"><span class="Apple-converted-space">        </span>let isAudioReady = false;</p>
 <p class="p1"><span class="Apple-converted-space">        </span>const sounds = {};</p>
 <p class="p1"><span class="Apple-converted-space">        </span>const soundUrls = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'coffeeshop': 'audio/coffeeshop.wav',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'forest': 'audio/forest.wav',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'ocean': 'audio/ocean.wav',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'rain': 'audio/rain.wav',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'stream': 'audio/stream.wav',</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'music': 'audio/music.mp3'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'coffeeshop': 'https://morajennifer808-commits.github.io/soundscape-project/audio/coffeeshop.mp3',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'forest': 'https://morajennifer808-commits.github.io/soundscape-project/audio/forest.mp3',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'ocean': 'https://morajennifer808-commits.github.io/soundscape-project/audio/ocean.mp3',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'rain': 'https://morajennifer808-commits.github.io/soundscape-project/audio/rain.mp3',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'stream': 'https://morajennifer808-commits.github.io/soundscape-project/audio/stream.mp3',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'music': 'https://morajennifer808-commits.github.io/soundscape-project/audio/music.mp3'</p>
 <p class="p1"><span class="Apple-converted-space">        </span>};</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>const startButton = document.getElementById('start-button');</p>
@@ -223,6 +223,34 @@
 <p class="p1"><span class="Apple-converted-space">                </span>soundButtons.forEach(btn =&gt; {</p>
 <p class="p1"><span class="Apple-converted-space">                    </span>toggleButtonState(btn, false);</p>
 <p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>showMessage('All</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showMessage('All sounds stopped.');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>soundButtons.forEach(button =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>button.addEventListener('click', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const soundName = button.dataset.sound;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const sound = sounds[soundName];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!isAudioReady) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>showMessage('Please click "Start Sound" first.');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (sound &amp;&amp; sound.state === 'started') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>sound.stop();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>toggleButtonState(button, false);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>showMessage(`${button.textContent} deactivated.`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (sound) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>sound.start();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>toggleButtonState(button, true);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>showMessage(`${button.textContent} activated.`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
 </body>
 </html>
